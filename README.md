@@ -1,2 +1,2 @@
-# least-sum
+# Least Sum
 A card game.
