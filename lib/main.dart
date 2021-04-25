@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:least_sum/cards.dart';
+import 'package:least_sum/components/cards.dart';
 
 void main() {
   runApp(MyApp());

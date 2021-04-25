@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:least_sum/cards.dart';
+import 'package:least_sum/components/cards.dart';
 
 void main() {
   group('getNumberForCard', () {
