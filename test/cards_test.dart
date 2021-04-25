@@ -63,6 +63,28 @@ void main() {
       testAllCardsShuffledWithoutRepetition(shuffledCards);
     });
   });
+
+  group('shuffle existing list', () {
+    test('shuffle works properly without jokers', () {
+      var cards = shuffleCards();
+      // Create a copy since shuffle does an in place shuffling of cards
+      var shuffledCards = List.of(cards);
+      shuffle(shuffledCards);
+
+      testCardsNotInSameOrder(shuffledCards, cards);
+      testAllCardsShuffledWithoutRepetition(shuffledCards);
+    });
+
+    test('shuffleCards works properly with jokers', () {
+      var cards = shuffleCards(jokersCount: 4);
+      // Create a copy since shuffle does an in place shuffling of cards
+      var shuffledCards = List.of(cards);
+      shuffle(shuffledCards);
+
+      testCardsNotInSameOrder(shuffledCards, cards);
+      testAllCardsShuffledWithoutRepetition(shuffledCards);
+    });
+  });
 }
 
 void testAllCardsShuffledWithoutRepetition(List<Card> shuffledCards) {
@@ -80,6 +102,20 @@ void testCardsNotInOrder(List<Card> shuffledCards) {
   for (int i = 0; i < shuffledCards.length; i++) {
     var numberForCard = getNumberForCard(shuffledCards[i]);
     if (numberForCard != i) {
+      areCardsInOrder = false;
+      break;
+    }
+  }
+  expect(areCardsInOrder, false);
+}
+
+void testCardsNotInSameOrder(
+    List<Card> shuffledCards, List<Card> preShuffledCards) {
+  var areCardsInOrder = true;
+
+  for (int i = 0; i < shuffledCards.length; i++) {
+    if (getNumberForCard(shuffledCards[i]) !=
+        getNumberForCard(preShuffledCards[i])) {
       areCardsInOrder = false;
       break;
     }
