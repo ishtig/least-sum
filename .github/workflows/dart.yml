@@ -25,7 +25,7 @@ jobs:
       - uses: dart-lang/setup-dart@v1
 
       - name: Install dependencies flutter
-        run: flutter pub get
+        run: subosito/flutter-action@v1
 
       - name: Install dependencies dart
         run: dart pub get
