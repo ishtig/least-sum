@@ -4,14 +4,14 @@ const cardsInADeck = 52;
 
 class Card {
   final Suit suit;
-  final int number;
+  final int faceNumber;
 
-  Card(this.suit, this.number);
+  Card(this.suit, this.faceNumber);
 
   @override
   String toString() {
     var icon = iconForSuit(suit);
-    String cardNum = getCardFace(number);
+    String cardNum = getCardFace(faceNumber);
     return "$icon$cardNum";
   }
 }
@@ -59,7 +59,7 @@ String getCardFace(int number) {
 
 
 int getNumberForCard(Card card) {
-  return card.suit.index * 13 + card.number;
+  return card.suit.index * 13 + card.faceNumber;
 }
 
 Card getCardForNumber(num number) {

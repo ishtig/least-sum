@@ -27,22 +27,22 @@ void main() {
   group('getCardForNumber', () {
     test('spade', () {
       var card = getCardForNumber(12);
-      expect(card.number, 12);
+      expect(card.faceNumber, 12);
       expect(card.suit, Suit.spade);
     });
     test('heart', () {
       var card = getCardForNumber(13);
-      expect(card.number, 0);
+      expect(card.faceNumber, 0);
       expect(card.suit, Suit.heart);
     });
     test('club', () {
       var card = getCardForNumber(29);
-      expect(card.number, 3);
+      expect(card.faceNumber, 3);
       expect(card.suit, Suit.club);
     });
     test('diamond', () {
       var card = getCardForNumber(39);
-      expect(card.number, 0);
+      expect(card.faceNumber, 0);
       expect(card.suit, Suit.diamond);
     });
   });
