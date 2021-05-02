@@ -1,5 +1,11 @@
+import 'dart:collection';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:least_sum/components/cards.dart';
+import 'package:least_sum/components/cards.dart' as CardComponent;
+import 'package:least_sum/components/dealer.dart';
+
+import 'components/shuffle.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,24 +29,24 @@ class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
   final String title;
-  final cards = shuffleCards(jokersCount: 2);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _position = 0;
+  var cards = shuffleCards(jokersCount: 2);
+  var cardsInHand = HashMap<int, List<CardComponent.Card>>();
 
-  void _incrementPosition() {
+  void _distributeCards() {
     setState(() {
-      _position = (_position + 1) % widget.cards.length;
+      cardsInHand = deal(cards, numOfPlayers: 4, numOfCards: 5);
     });
   }
 
   void _shuffle() {
     setState(() {
-      shuffle(widget.cards);
+      cards = shuffleCards(jokersCount: 2);
     });
   }
 
@@ -52,44 +58,24 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You are looking at the card at position:',
-            ),
-            Text(
-              '$_position',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            Text(
-              widget.cards[_position].toString(),
-              style: Theme.of(context).textTheme.headline4,
-            ),
-            MaterialButton(
-                onPressed: _shuffle,
-                color: Colors.blue,
-                textColor: Colors.white,
-                child: Text('Shuffle'))
-          ],
-        ),
-      ),
+      body: ListView.builder(
+          itemCount: cardsInHand.length,
+          itemBuilder: (context, position) {
+            return Text(getStringForCardsWith(position));
+          }),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementPosition,
+        onPressed: _distributeCards,
         tooltip: 'Increment',
-        child: Icon(Icons.add),
+        child: Icon(Icons.unarchive_outlined),
       ),
     );
+  }
+
+  String getStringForCardsWith(int player) {
+    String string = '';
+    for (CardComponent.Card card in cardsInHand[player]) {
+      string += ' ' + card.toString();
+    }
+    return string;
   }
 }

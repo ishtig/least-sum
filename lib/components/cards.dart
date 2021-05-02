@@ -1,6 +1,6 @@
-import 'dart:math';
-
 enum Suit { spade, heart, club, diamond, joker }
+
+const cardsInADeck = 52;
 
 class Card {
   final Suit suit;
@@ -10,28 +10,53 @@ class Card {
 
   @override
   String toString() {
-    return "$suit : $number";
+    var icon = iconForSuit(suit);
+    String cardNum = getCardFace(number);
+    return "$icon$cardNum";
   }
 }
 
-const _cardsInADeck = 52;
-
-List<Card> shuffleCards({int jokersCount = 0}) {
-  var cards = List.generate(
-      _cardsInADeck + jokersCount, (i) => getCardForNumber(i),
-      growable: false);
-  return shuffle(cards);
-}
-
-List<Card> shuffle(List<Card> cards) {
-  for (var i = 0; i < cards.length; i++) {
-    var swapPosition = i + _random.nextInt(cards.length - i);
-    var temp = cards[i];
-    cards[i] = cards[swapPosition];
-    cards[swapPosition] = temp;
+/// Returns text unicode icons for suits.
+String iconForSuit(Suit suit) {
+  switch (suit) {
+    case Suit.spade:
+      return '♠';
+    case Suit.heart:
+      return '♥';
+    case Suit.club:
+      return '♣';
+    case Suit.diamond:
+      return '♦';
+    case Suit.joker:
+      return 'J';
   }
-  return cards;
+  throw ArgumentError('Unknown argument');
 }
+
+/// Returns the number or character displayed on the face corresponding to the
+/// number.
+///
+/// 0 - 9 implies just numbers.
+/// 10 = Jack
+/// 11 = Queen
+/// 12 = King
+String getCardFace(int number) {
+  switch (number) {
+    case 0:
+      return 'A';
+    case 10:
+      return 'J';
+    case 11:
+      return 'Q';
+    case 12:
+      return 'K';
+  }
+  if (number > 0 && number < 10) {
+    return (number + 1).toString();
+  }
+  throw ArgumentError('Unknown card number: $number');
+}
+
 
 int getNumberForCard(Card card) {
   return card.suit.index * 13 + card.number;
@@ -41,5 +66,3 @@ Card getCardForNumber(num number) {
   var suitIndex = number / 13;
   return Card(Suit.values[suitIndex.toInt()], number - 13 * suitIndex.toInt());
 }
-
-var _random = Random(52);
