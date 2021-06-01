@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "1023373452984",
+    "firebase_url": "https://least-sum-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "least-sum",
+    "storage_bucket": "least-sum.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023373452984:android:79efe178b6b27cc9ebf64d",
+        "android_client_info": {
+          "package_name": "com.ishti.least_sum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023373452984-r2fv3l97vmhe0r643sh50jksg6uemt9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnM-oMPJl0UxVGybAAq-0asvb3jcZaw-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023373452984-r2fv3l97vmhe0r643sh50jksg6uemt9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1023373452984:android:b56cbe83981ec7e0ebf64d",
+        "android_client_info": {
+          "package_name": "me.ishti.games.least_sum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1023373452984-r2fv3l97vmhe0r643sh50jksg6uemt9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnM-oMPJl0UxVGybAAq-0asvb3jcZaw-s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1023373452984-r2fv3l97vmhe0r643sh50jksg6uemt9f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

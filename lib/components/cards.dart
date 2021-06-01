@@ -57,7 +57,6 @@ String getCardFace(int number) {
   throw ArgumentError('Unknown card number: $number');
 }
 
-
 int getNumberForCard(Card card) {
   return card.suit.index * 13 + card.faceNumber;
 }
@@ -65,4 +64,20 @@ int getNumberForCard(Card card) {
 Card getCardForNumber(num number) {
   var suitIndex = number / 13;
   return Card(Suit.values[suitIndex.toInt()], number - 13 * suitIndex.toInt());
+}
+
+List<int> getNumbersForCards(List<Card> cards) {
+  var numbers = <int>[];
+  for (var card in cards) {
+    numbers.add(getNumberForCard(card));
+  }
+  return numbers;
+}
+
+List<Card> getCardsForNumbers(List<dynamic> numbers) {
+  var cards = <Card>[];
+  for (var number in numbers) {
+    cards.add(getCardForNumber(number));
+  }
+  return cards;
 }
