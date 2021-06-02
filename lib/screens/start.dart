@@ -33,7 +33,7 @@ class StartGame extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   if (isUserIdValid()) {
-                    showJoinGame(context);
+                    showJoinGame(context, _userIdTextChangeListener.userId);
                   } else {
                     showInvalidUserIdSnackbar(context);
                   }
@@ -85,6 +85,7 @@ showGameCreated(BuildContext context, String gameCode) {
       MaterialPageRoute(builder: (context) => CreatorUserListPage(gameCode)));
 }
 
-showJoinGame(BuildContext context) {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => JoinGame()));
+showJoinGame(BuildContext context, String userName) {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => JoinGame(userName)));
 }

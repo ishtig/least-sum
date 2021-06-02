@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:least_sum/game/game.dart';
@@ -17,12 +19,16 @@ Future<void> createGame(String userName) async {
   db.child('games/$userName').child('players').child(userName).set('false');
 }
 
-Future<bool> joinGame(String gameCode) async {
+Future<bool> joinGame(String gameCode, String userName) async {
   await initDatabase();
+  Game game = await getGame(gameCode);
   var games = db.child('games');
-  var value = await games.child(gameCode).once().then((value) => value);
-
-  return value != null;
+  if (game.status.index < GameStatus.started.index) {
+    await games.child(gameCode).child('players').child(userName).set(false);
+    return true;
+  } else {
+    return false;
+  }
 }
 
 Stream<Event> getGamePlayers(String gameCode) {
@@ -49,4 +55,11 @@ Future<Game> getGame(String gameCode) async {
   var gameDbSnapshot = await db.child('games/$gameCode').once();
   var gameMap = gameDbSnapshot.value as Map<dynamic, dynamic>;
   return gameFromMap(gameMap);
+}
+
+Stream<Game> getGameStream(String gameCode) {
+  var gameStreamAsEvent = db.child('games/$gameCode').onValue;
+  return gameStreamAsEvent.transform(StreamTransformer.fromHandlers(
+      handleData: (Event event, Sink sink) =>
+          sink.add(gameFromMap(event.snapshot.value))));
 }

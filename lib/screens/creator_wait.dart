@@ -39,12 +39,7 @@ class CreatorUserListPage extends StatelessWidget {
                       return Text(
                           'Waiting for players to join. Share your game code: $gameCode');
                     }
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return Center(child: Text(players[index]));
-                        },
-                        itemCount: players.length);
+                    return listViewOfPlayers(players);
                   }
                 }),
             ElevatedButton(
@@ -69,4 +64,19 @@ class CreatorUserListPage extends StatelessWidget {
 
     await sendGame(game, gameCode);
   }
+}
+
+ListView listViewOfPlayers(List<String> players) {
+  return ListView.builder(
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return Padding(
+            padding: EdgeInsets.all(8),
+            child: Center(
+                child: Text(
+              players[index],
+              style: TextStyle(fontSize: 18),
+            )));
+      },
+      itemCount: players.length);
 }
