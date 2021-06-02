@@ -16,7 +16,11 @@ Future<void> initDatabase() async {
 Future<void> createGame(String userName) async {
   await initDatabase();
   // TODO(ishti): validate that is game does not exist.
-  db.child('games/$userName').child('players').child(userName).set('false');
+  db
+      .child('games/$userName')
+      .child('players')
+      .child(userName)
+      .set(DateTime.now().millisecond);
 }
 
 Future<bool> joinGame(String gameCode, String userName) async {
@@ -24,7 +28,11 @@ Future<bool> joinGame(String gameCode, String userName) async {
   Game game = await getGame(gameCode);
   var games = db.child('games');
   if (game.status.index < GameStatus.started.index) {
-    await games.child(gameCode).child('players').child(userName).set(false);
+    await games
+        .child(gameCode)
+        .child('players')
+        .child(userName)
+        .set(DateTime.now().millisecond);
     return true;
   } else {
     return false;
