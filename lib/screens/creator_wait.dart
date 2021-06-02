@@ -19,12 +19,13 @@ class CreatorUserListPage extends StatelessWidget {
         appBar: AppBar(title: Text('Joined Users')),
         body: Center(
             child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             StreamBuilder<Event>(
                 stream: getGamePlayers(gameCode),
                 builder: (context, eventSnapshot) {
                   if (!eventSnapshot.hasData) {
-                    return Text('Loading...');
+                    return Center(child: Text('Loading...'));
                   } else {
                     var event = eventSnapshot.data;
                     if (event.snapshot.value is Map) {
@@ -33,6 +34,10 @@ class CreatorUserListPage extends StatelessWidget {
                       playersMap.forEach((key, value) {
                         players.add(key);
                       });
+                    }
+                    if (players.length < 2) {
+                      return Text(
+                          'Waiting for players to join. Share your game code: $gameCode');
                     }
                     return ListView.builder(
                         shrinkWrap: true,
@@ -44,8 +49,15 @@ class CreatorUserListPage extends StatelessWidget {
                 }),
             ElevatedButton(
                 onPressed: () async {
-                  await startGame(players);
-                  openGame(gameCode, context);
+                  if (players.length >= 2) {
+                    await startGame(players);
+                    openGame(gameCode, context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text("Waiting for players to join."),
+                    ));
+                  }
                 },
                 child: Text(Strings.startGame))
           ],
