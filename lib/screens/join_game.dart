@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:least_sum/db/firebase_database.dart';
 import 'package:least_sum/res/strings.dart';
-import 'package:least_sum/screens/home.dart';
+import 'package:least_sum/screens/game_screen.dart';
 
 class JoinGame extends StatelessWidget {
   final gameCodeContainer = GameCodeContainer();

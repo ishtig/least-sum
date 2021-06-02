@@ -5,7 +5,7 @@ import 'package:least_sum/db/firebase_database.dart';
 import 'package:least_sum/game/game.dart';
 import 'package:least_sum/res/strings.dart' as Strings;
 
-import 'home.dart';
+import 'game_screen.dart';
 
 class CreatorUserListPage extends StatelessWidget {
   final String gameCode;

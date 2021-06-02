@@ -4,19 +4,19 @@ import 'package:least_sum/components/cards.dart' as CardComponent;
 import 'package:least_sum/db/firebase_database.dart';
 import 'package:least_sum/game/game.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage(this.gameCode, {Key key}) : super(key: key);
+class GamePage extends StatefulWidget {
+  GamePage(this.gameCode, {Key key}) : super(key: key);
 
   final String gameCode;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState(gameCode);
+  _GamePageState createState() => _GamePageState(gameCode);
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _GamePageState extends State<GamePage> {
   final String gameCode;
 
-  _MyHomePageState(this.gameCode);
+  _GamePageState(this.gameCode);
 
   @override
   Widget build(BuildContext context) {
@@ -62,5 +62,5 @@ class _MyHomePageState extends State<MyHomePage> {
 
 void openGame(String gameCode, BuildContext context) {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => MyHomePage(gameCode)));
+      context, MaterialPageRoute(builder: (context) => GamePage(gameCode)));
 }
